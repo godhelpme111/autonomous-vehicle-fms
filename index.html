@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autonomous Vehicle Fleet Management System</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">▣</div>
+        <div>
+          <div>Autonomous Vehicle</div>
+          <strong>Fleet Management System</strong>
+        </div>
+      </div>
+      <nav class="nav-tabs">
+        <a class="active">Home</a>
+        <a>Bus</a>
+        <a>Basic configuration</a>
+      </nav>
+      <div class="account">fc ep sgp&nbsp;&nbsp;&nbsp; chenwei1_sgp ▼</div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="side-item active">◎<span>GM</span></div>
+      <div class="side-item">⌘<span>RM</span></div>
+    </aside>
+
+    <main class="dashboard">
+      <section class="left-panel glass">
+        <div class="location-row">
+          <span class="pin">●</span>
+          <strong>Singapore</strong>
+          <span class="bus-dot"></span>
+          <span>Bus⌄</span>
+        </div>
+
+        <div class="metric-card mileage-card">
+          <div class="metric-title">OperationTotal<br />Mileage (KM)</div>
+          <button class="tiny-select">Mileage⌄</button>
+          <div class="metric-value blue">219.85</div>
+          <div class="metric-title second">TodayOperationMileage (KM)</div>
+          <div class="metric-value white">0.00</div>
+        </div>
+
+        <div class="metric-card tasks-card">
+          <div class="metric-head">
+            <div class="metric-title">Total Tasks</div>
+            <button class="tiny-select">Last 7 Days⌄</button>
+          </div>
+          <div class="metric-value yellow">6</div>
+        </div>
+
+        <section class="alerts-card">
+          <h2>Today's alert</h2>
+          <div id="alertsList" class="alerts-list"></div>
+        </section>
+      </section>
+
+      <section class="map-area">
+        <div class="map-grid"></div>
+        <div class="map-label label-1">Johor Bahru</div>
+        <div class="map-label label-2">Bukit Gombak</div>
+        <div class="map-label label-3">Little India</div>
+        <div class="map-label label-4">Sentosa Cove</div>
+        <div class="map-label label-5">Tanjong Ladang</div>
+        <div class="vehicle-marker">
+          <div class="vehicle-card">R4F00099, <span>Offline</span></div>
+          <div class="vehicle-icon"></div>
+        </div>
+      </section>
+
+      <section class="right-panel glass">
+        <div class="search">⌕ Enter plate/SN</div>
+        <div class="switch-tabs">
+          <button class="selected">Vehicle Status</button>
+          <button>Vehicle Details</button>
+        </div>
+        <h3>Total Vehicles</h3>
+        <div class="vehicle-total">
+          <div class="ring">3</div>
+          <div class="legend">
+            <div><span></span>Working <b>0</b></div>
+            <div><span></span>Idle <b>2</b></div>
+          </div>
+        </div>
+        <h3>Task Info</h3>
+        <div class="task-table-head"><span>Route Name</span><span>Task Vehicle</span></div>
+        <div class="no-data">No data</div>
+      </section>
+    </main>
+  </div>
+
+  <div id="imageModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <button id="closeModal" class="modal-close" aria-label="Close">×</button>
+      <div class="camera-frame">
+        <img class="alert-image" src="./110.jpg" alt="Lost luggage alert snapshot" />
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
