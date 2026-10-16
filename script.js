@@ -33,8 +33,11 @@ const alerts = [
 ];
 
 const alertsList = document.getElementById("alertsList");
+const alertTabs = document.querySelector(".alert-tabs");
 const modal = document.getElementById("imageModal");
 const closeModal = document.getElementById("closeModal");
+
+let activeAlertStatus = "waiting process";
 
 function getStatusClass(status) {
   if (status === "Processing") return "status-processing";
@@ -42,8 +45,23 @@ function getStatusClass(status) {
   return "status-waiting";
 }
 
+function updateTabCounts() {
+  alertTabs.querySelectorAll(".alert-tab").forEach((tab) => {
+    const count = alerts.filter((alert) => alert.status === tab.dataset.status).length;
+    tab.querySelector(".alert-tab-count").textContent = count;
+  });
+}
+
 function renderAlerts() {
-  alertsList.innerHTML = alerts.map((alert) => {
+  updateTabCounts();
+  const visibleAlerts = alerts.filter((alert) => alert.status === activeAlertStatus);
+
+  if (visibleAlerts.length === 0) {
+    alertsList.innerHTML = `<div class="alerts-empty">No data</div>`;
+    return;
+  }
+
+  alertsList.innerHTML = visibleAlerts.map((alert) => {
     const fieldHtml = alert.fields.map(([key, value, type]) => {
       const valueHtml = type === "view"
         ? `<button class="view-link" data-action="view">${value}</button>`
@@ -92,6 +110,16 @@ function updateStatus(alertId, status) {
   renderAlerts();
 }
 
+function setActiveAlertTab(status) {
+  activeAlertStatus = status;
+  alertTabs.querySelectorAll(".alert-tab").forEach((tab) => {
+    const selected = tab.dataset.status === status;
+    tab.classList.toggle("active", selected);
+    tab.setAttribute("aria-selected", selected ? "true" : "false");
+  });
+  renderAlerts();
+}
+
 function openModal() {
   modal.classList.add("show");
   modal.setAttribute("aria-hidden", "false");
@@ -101,6 +129,12 @@ function hideModal() {
   modal.classList.remove("show");
   modal.setAttribute("aria-hidden", "true");
 }
+
+alertTabs.addEventListener("click", (event) => {
+  const tab = event.target.closest(".alert-tab");
+  if (!tab) return;
+  setActiveAlertTab(tab.dataset.status);
+});
 
 alertsList.addEventListener("click", (event) => {
   const target = event.target;

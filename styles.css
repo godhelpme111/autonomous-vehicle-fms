@@ -230,8 +230,56 @@ body {
 }
 
 .alerts-card h2 {
-  margin: 0 0 6px 7px;
+  margin: 0 0 8px 7px;
   font-size: 16px;
+}
+
+.alert-tabs {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr 1fr;
+  gap: 4px;
+  margin: 0 6px 8px 2px;
+  flex: 0 0 auto;
+}
+
+.alert-tab {
+  min-height: 30px;
+  padding: 3px 4px;
+  border: 1px solid rgba(40, 161, 255, 0.28);
+  border-radius: 4px;
+  background: rgba(4, 28, 48, 0.55);
+  color: #9fb8cc;
+  font-size: 9px;
+  line-height: 11px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.alert-tab-count {
+  font-weight: 800;
+  color: #7ecbff;
+}
+
+.alert-tab.active .alert-tab-count {
+  color: #fff;
+}
+
+.alert-tab.active {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(180deg, #167aff, #0b5cd4);
+  box-shadow: 0 0 10px rgba(22, 122, 255, 0.35);
+}
+
+.alert-tab:hover {
+  filter: brightness(1.08);
+}
+
+.alerts-empty {
+  margin-top: 28px;
+  color: #8499a9;
+  text-align: center;
+  font-size: 11px;
 }
 
 .alerts-list {
