@@ -1,0 +1,21 @@
+script.js
+  s_3b0d1a27d2c064::t_47a2ef279a45d9 55-58,97-100,104,109,114
+styles.css
+  s_3b0d1a27d2c064::t_8b4d7d79660c11 338-340
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d500bd1d67e18c594c4f25b6f71bce1719cadeab",
+  "prompts": {},
+  "sessions": {
+    "s_3b0d1a27d2c064": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "06d6d89a-b480-40d8-a0df-7d2d6c3dfe8e",
+        "model": "grok-4.7"
+      },
+      "human_author": "trae-solo-agent <solo-agent@trae.ai>"
+    }
+  }
+}
