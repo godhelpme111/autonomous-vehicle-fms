@@ -1,0 +1,19 @@
+index.html
+  s_3b0d1a27d2c064::t_f0ab57733bff1e 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "20890350798dcaad0ed847bc34e80b020aaddb9a",
+  "prompts": {},
+  "sessions": {
+    "s_3b0d1a27d2c064": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "06d6d89a-b480-40d8-a0df-7d2d6c3dfe8e",
+        "model": "grok-4.7"
+      },
+      "human_author": "trae-solo-agent <solo-agent@trae.ai>"
+    }
+  }
+}
