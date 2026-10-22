@@ -335,17 +335,9 @@ body {
   box-shadow: inset 3px 0 0 #2ee6a0, 0 0 14px rgba(46, 230, 160, 0.24);
 }
 
-.priority-flag {
-  margin-bottom: 3px;
-  font-size: 10px;
-  line-height: 12px;
-  font-weight: 800;
-  letter-spacing: 0.3px;
-}
-
-.priority-high .priority-flag { color: #ff8d8d; }
-.priority-medium .priority-flag { color: #ffe07a; }
-.priority-low .priority-flag { color: #7dffc0; }
+.priority-high .priority-value { color: #ff8d8d; }
+.priority-medium .priority-value { color: #ffe07a; }
+.priority-low .priority-value { color: #7dffc0; }
 
 .priority-high .alert-key { color: #ffc4c4; }
 .priority-medium .alert-key { color: #ffe7a8; }

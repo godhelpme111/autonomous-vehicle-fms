@@ -52,10 +52,10 @@ function getStatusClass(status) {
   return "status-waiting";
 }
 
-function getPriorityLabel(priority) {
-  if (priority === "high") return "High";
-  if (priority === "medium") return "Medium";
-  return "Low";
+function getPriorityText(priority) {
+  if (priority === "high") return "高";
+  if (priority === "medium") return "中";
+  return "低";
 }
 
 function getWorkflowFields(status) {
@@ -94,23 +94,24 @@ function renderAlerts() {
   }
 
   alertsList.innerHTML = visibleAlerts.map((alert) => {
-    const fieldHtml = alert.fields.concat(getWorkflowFields(alert.status)).map(([key, value, type]) => {
+    const fieldHtml = alert.fields
+      .concat(getWorkflowFields(alert.status))
+      .concat([["优先级", getPriorityText(alert.priority)]])
+      .map(([key, value, type]) => {
       const valueHtml = type === "view"
         ? `<button class="view-link" data-action="view">${value}</button>`
         : value;
+      const valueClass = key === "优先级" ? " priority-value" : "";
 
       return `
         <div class="alert-line">
           <span class="alert-key">${key}:</span>
-          <span class="alert-value">${valueHtml}</span>
+          <span class="alert-value${valueClass}">${valueHtml}</span>
         </div>
       `;
     }).join("");
 
-    const priorityHtml = alert.status === "waiting process"
-      ? `<div class="priority-flag">${getPriorityLabel(alert.priority)}</div>`
-      : "";
-    const priorityClass = alert.status === "waiting process" ? ` priority-${alert.priority}` : "";
+    const priorityClass = ` priority-${alert.priority}`;
 
     const actionButtons = alert.status === "waiting process"
       ? `
@@ -129,7 +130,6 @@ function renderAlerts() {
 
     return `
       <article class="alert-item${priorityClass}" data-id="${alert.id}">
-        ${priorityHtml}
         ${fieldHtml}
         <div class="alert-line">
           <span class="alert-key">Status:</span>
