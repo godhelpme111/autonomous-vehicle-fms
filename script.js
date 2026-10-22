@@ -53,24 +53,24 @@ function getStatusClass(status) {
 }
 
 function getPriorityText(priority) {
-  if (priority === "high") return "高";
-  if (priority === "medium") return "中";
-  return "低";
+  if (priority === "high") return "High";
+  if (priority === "medium") return "Medium";
+  return "Low";
 }
 
 function getWorkflowFields(status) {
   if (status === "Processing") {
     return [
-      ["处理人", HANDLER_NAME],
-      ["开始处理时间", PROCESS_START_TIME]
+      ["Handler", HANDLER_NAME],
+      ["Start Time", PROCESS_START_TIME]
     ];
   }
 
   if (status === "Figure Out") {
     return [
-      ["处理人", HANDLER_NAME],
-      ["开始处理时间", PROCESS_START_TIME],
-      ["处理完成时间", PROCESS_FINISH_TIME]
+      ["Handler", HANDLER_NAME],
+      ["Start Time", PROCESS_START_TIME],
+      ["Finish Time", PROCESS_FINISH_TIME]
     ];
   }
 
@@ -96,12 +96,12 @@ function renderAlerts() {
   alertsList.innerHTML = visibleAlerts.map((alert) => {
     const fieldHtml = alert.fields
       .concat(getWorkflowFields(alert.status))
-      .concat([["优先级", getPriorityText(alert.priority)]])
+      .concat([["Priority", getPriorityText(alert.priority)]])
       .map(([key, value, type]) => {
       const valueHtml = type === "view"
         ? `<button class="view-link" data-action="view">${value}</button>`
         : value;
-      const valueClass = key === "优先级" ? " priority-value" : "";
+      const valueClass = key === "Priority" ? " priority-value" : "";
 
       return `
         <div class="alert-line">
