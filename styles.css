@@ -317,13 +317,47 @@ body {
   box-shadow: 0 0 18px rgba(16, 123, 205, 0.12);
 }
 
+.alert-item.priority-high {
+  border-color: rgba(255, 92, 92, 0.88);
+  background: linear-gradient(180deg, rgba(128, 28, 40, 0.72), rgba(36, 12, 18, 0.9));
+  box-shadow: inset 3px 0 0 #ff4d4f, 0 0 14px rgba(255, 77, 79, 0.28);
+}
+
+.alert-item.priority-medium {
+  border-color: rgba(245, 196, 40, 0.88);
+  background: linear-gradient(180deg, rgba(122, 90, 12, 0.7), rgba(36, 28, 8, 0.9));
+  box-shadow: inset 3px 0 0 #f5c518, 0 0 14px rgba(245, 191, 25, 0.26);
+}
+
+.alert-item.priority-low {
+  border-color: rgba(46, 214, 140, 0.88);
+  background: linear-gradient(180deg, rgba(14, 96, 62, 0.72), rgba(8, 28, 22, 0.9));
+  box-shadow: inset 3px 0 0 #2ee6a0, 0 0 14px rgba(46, 230, 160, 0.24);
+}
+
+.priority-flag {
+  margin-bottom: 3px;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.priority-high .priority-flag { color: #ff8d8d; }
+.priority-medium .priority-flag { color: #ffe07a; }
+.priority-low .priority-flag { color: #7dffc0; }
+
+.priority-high .alert-key { color: #ffc4c4; }
+.priority-medium .alert-key { color: #ffe7a8; }
+.priority-low .alert-key { color: #b8ffd8; }
+
 .alert-line {
   display: grid;
-  grid-template-columns: 82px 1fr;
-  gap: 6px;
+  grid-template-columns: 78px 1fr;
+  gap: 4px;
   margin-bottom: 2px;
   font-size: 10px;
-  line-height: 11px;
+  line-height: 12px;
 }
 
 .alert-key {

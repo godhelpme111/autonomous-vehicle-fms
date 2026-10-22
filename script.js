@@ -1,6 +1,11 @@
+const HANDLER_NAME = "chenwei1_sgp";
+const PROCESS_START_TIME = "2026-10-22 12:00:01";
+const PROCESS_FINISH_TIME = "2026-10-22 12:30:20";
+
 const alerts = [
   {
     id: 1,
+    priority: "high",
     fields: [
       ["Vehicle", "R4F00099"],
       ["Fault Code", "GZ010203"],
@@ -13,6 +18,7 @@ const alerts = [
   },
   {
     id: 2,
+    priority: "medium",
     fields: [
       ["Vehicle", "R4F00099"],
       ["Event Type", "Brake pedal takeover"],
@@ -22,6 +28,7 @@ const alerts = [
   },
   {
     id: 3,
+    priority: "low",
     fields: [
       ["Vehicle", "R4F00099"],
       ["Event Type", "Lost luggage"],
@@ -45,6 +52,31 @@ function getStatusClass(status) {
   return "status-waiting";
 }
 
+function getPriorityLabel(priority) {
+  if (priority === "high") return "High";
+  if (priority === "medium") return "Medium";
+  return "Low";
+}
+
+function getWorkflowFields(status) {
+  if (status === "Processing") {
+    return [
+      ["处理人", HANDLER_NAME],
+      ["开始处理时间", PROCESS_START_TIME]
+    ];
+  }
+
+  if (status === "Figure Out") {
+    return [
+      ["处理人", HANDLER_NAME],
+      ["开始处理时间", PROCESS_START_TIME],
+      ["处理完成时间", PROCESS_FINISH_TIME]
+    ];
+  }
+
+  return [];
+}
+
 function updateTabCounts() {
   alertTabs.querySelectorAll(".alert-tab").forEach((tab) => {
     const count = alerts.filter((alert) => alert.status === tab.dataset.status).length;
@@ -62,7 +94,7 @@ function renderAlerts() {
   }
 
   alertsList.innerHTML = visibleAlerts.map((alert) => {
-    const fieldHtml = alert.fields.map(([key, value, type]) => {
+    const fieldHtml = alert.fields.concat(getWorkflowFields(alert.status)).map(([key, value, type]) => {
       const valueHtml = type === "view"
         ? `<button class="view-link" data-action="view">${value}</button>`
         : value;
@@ -74,6 +106,11 @@ function renderAlerts() {
         </div>
       `;
     }).join("");
+
+    const priorityHtml = alert.status === "waiting process"
+      ? `<div class="priority-flag">${getPriorityLabel(alert.priority)}</div>`
+      : "";
+    const priorityClass = alert.status === "waiting process" ? ` priority-${alert.priority}` : "";
 
     const actionButtons = alert.status === "waiting process"
       ? `
@@ -91,7 +128,8 @@ function renderAlerts() {
         : "";
 
     return `
-      <article class="alert-item" data-id="${alert.id}">
+      <article class="alert-item${priorityClass}" data-id="${alert.id}">
+        ${priorityHtml}
         ${fieldHtml}
         <div class="alert-line">
           <span class="alert-key">Status:</span>
