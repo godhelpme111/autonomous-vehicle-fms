@@ -52,6 +52,11 @@ function getStatusClass(status) {
   return "status-waiting";
 }
 
+function getStatusLabel(status) {
+  if (status === "Figure Out") return "case closed";
+  return status;
+}
+
 function getPriorityText(priority) {
   if (priority === "high") return "High";
   if (priority === "medium") return "Medium";
@@ -117,13 +122,13 @@ function renderAlerts() {
       ? `
         <div class="alert-actions">
           <button data-action="processing">Processing</button>
-          <button data-action="figure">Figure Out</button>
+          <button data-action="figure">case closed</button>
         </div>
       `
       : alert.status === "Processing"
         ? `
           <div class="alert-actions single-action">
-            <button data-action="figure">Figure Out</button>
+            <button data-action="figure">case closed</button>
           </div>
         `
         : "";
@@ -133,7 +138,7 @@ function renderAlerts() {
         ${fieldHtml}
         <div class="alert-line">
           <span class="alert-key">Status:</span>
-          <span class="alert-value ${getStatusClass(alert.status)}">${alert.status}</span>
+          <span class="alert-value ${getStatusClass(alert.status)}">${getStatusLabel(alert.status)}</span>
         </div>
         ${actionButtons}
       </article>
@@ -201,6 +206,47 @@ modal.addEventListener("click", (event) => {
   if (event.target.classList.contains("modal-backdrop")) {
     hideModal();
   }
+});
+
+const alertVolumeToggle = document.getElementById("alertVolumeToggle");
+let alertSoundEnabled = false;
+let audioContext = null;
+
+function playAlertTone() {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return;
+
+  if (!audioContext) audioContext = new AudioCtx();
+  if (audioContext.state === "suspended") audioContext.resume();
+
+  const now = audioContext.currentTime;
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(880, now);
+  oscillator.frequency.exponentialRampToValueAtTime(620, now + 0.14);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.06, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+  oscillator.start(now);
+  oscillator.stop(now + 0.2);
+}
+
+function setAlertSoundEnabled(enabled) {
+  alertSoundEnabled = enabled;
+  alertVolumeToggle.classList.toggle("is-muted", !enabled);
+  alertVolumeToggle.classList.toggle("is-on", enabled);
+  alertVolumeToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+  const label = enabled ? "Volume on" : "Volume off";
+  alertVolumeToggle.setAttribute("aria-label", label);
+  alertVolumeToggle.title = label;
+  if (enabled) playAlertTone();
+}
+
+alertVolumeToggle.addEventListener("click", () => {
+  setAlertSoundEnabled(!alertSoundEnabled);
 });
 
 renderAlerts();

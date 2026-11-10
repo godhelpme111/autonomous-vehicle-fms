@@ -229,14 +229,66 @@ body {
   flex-direction: column;
 }
 
+.alerts-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 4px 8px 7px;
+}
+
 .alerts-card h2 {
-  margin: 0 0 8px 7px;
+  margin: 0;
   font-size: 16px;
+}
+
+.volume-toggle {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid rgba(40, 161, 255, 0.35);
+  border-radius: 4px;
+  background: rgba(4, 28, 48, 0.55);
+  color: #8fb8d4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.volume-toggle:hover {
+  color: #e8f6ff;
+  border-color: rgba(40, 161, 255, 0.75);
+}
+
+.volume-toggle.is-on {
+  color: #3ecbff;
+  border-color: rgba(62, 203, 255, 0.75);
+  background: rgba(14, 78, 140, 0.5);
+}
+
+.volume-icon {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.volume-toggle .volume-icon-on {
+  display: none;
+}
+
+.volume-toggle.is-on .volume-icon-muted {
+  display: none;
+}
+
+.volume-toggle.is-on .volume-icon-on {
+  display: block;
 }
 
 .alert-tabs {
   display: grid;
-  grid-template-columns: 1.45fr 1fr 1fr;
+  grid-template-columns: 1.35fr 0.9fr 1.15fr;
   gap: 4px;
   margin: 0 6px 8px 2px;
   flex: 0 0 auto;
